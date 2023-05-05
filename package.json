@@ -1,0 +1,30 @@
+{
+  "name": "discorduseraccounts",
+  "version": "1.0.0",
+  "description": "Extract user account information from the Chingu Discord server",
+  "main": "index.js",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chingu-x/discorduseraccounts.git"
+  },
+  "keywords": [
+    "node",
+    "discordjs"
+  ],
+  "author": "Jim Medlock",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/chingu-x/discorduseraccounts/issues"
+  },
+  "homepage": "https://github.com/chingu-x/discorduseraccounts#readme",
+  "scripts": {
+    "start": "node index.js extract users",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "commander": "^10.0.1",
+    "discord.js": "^14.10.2",
+    "dotenv": "^16.0.3"
+  }
+}
