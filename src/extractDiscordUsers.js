@@ -7,15 +7,13 @@ const extractDiscordUsers = async () => {
         GatewayIntentBits.GuildMembers,
       ],
     })
-  console.log('client.guilds: ', client.guilds)
-
   const login = await client.login(process.env.DISCORD_TOKEN)
   console.log('Logged in: ', login)
 
   try {
     client.on('ready', async () => {
       const guild = await client.guilds.fetch(process.env.GUILD_ID)
-      const members = await guild.members.fetch()
+      const members = await guild.members.fetch({ limit: 9999 } )
       console.log('Guild members...:')
       for (const member of members) {
         console.log(`id: ${ member[1].user.id } username: ${ member[1].user.username } discriminator: ${ member[1].user.discriminator }`)
