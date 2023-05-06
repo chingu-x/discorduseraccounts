@@ -23,6 +23,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "airtable": "^0.11.6",
     "commander": "^10.0.1",
     "discord.js": "^14.10.2",
     "dotenv": "^16.0.3"

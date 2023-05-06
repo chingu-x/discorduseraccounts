@@ -14,8 +14,8 @@ import extractDiscordUsers from './src/extractDiscordUsers.js'
       try {
         if (command._name === 'extract' && source.toLowerCase() === 'users') {
           await extractDiscordUsers()
+          //process.exit(0)
         }
-        // process.exit(0)
       }
       catch (err) {
         console.log(err)

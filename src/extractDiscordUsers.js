@@ -1,4 +1,5 @@
 import { Client, GatewayIntentBits } from 'discord.js'
+import { addDiscordIDToApplication } from './utils/updateApplication.js'
 
 const extractDiscordUsers = async () => {
   const client = new Client({
@@ -13,10 +14,13 @@ const extractDiscordUsers = async () => {
   try {
     client.on('ready', async () => {
       const guild = await client.guilds.fetch(process.env.GUILD_ID)
-      const members = await guild.members.fetch({ limit: 9999 } )
+      const members = await guild.members.fetch({ limit: 5 } )
       console.log('Guild members...:')
       for (const member of members) {
-        console.log(`id: ${ member[1].user.id } username: ${ member[1].user.username } discriminator: ${ member[1].user.discriminator }`)
+        const userName = member[1].user.username.concat('#', member[1].user.discriminator)
+        console.log(`id: ${ member[1].user.id } userName: ${ userName }`)
+        const updateResult = await addDiscordIDToApplication(userName, member[1].user.id )
+        console.log(`id: ${ member[1].user.id } userName: ${ userName } updateResult: ${ updateResult }`)
       }
     })
   }
