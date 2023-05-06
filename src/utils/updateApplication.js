@@ -6,7 +6,7 @@ import Airtable from 'airtable'
 const getApplication = async (discordName) => {
   return new Promise(async (resolve, reject) => {
     const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE)
-    const filter = "{Discord Name} = \"" + discordName + "\" "
+    const filter = '{Discord Name} = \"' + discordName + "\" "
 
     base('Applications').select({ 
       filterByFormula: filter,
@@ -70,7 +70,6 @@ const addDiscordIDToApplication = async (discordName, discordID) => {
       // If a matching row is found update it with the message count
       const updateResult = await updateApplication(recordID, discordID)
       resolve(updateResult)
-      //resolve('UPDATED')
     }
   })
 }

@@ -14,13 +14,23 @@ const extractDiscordUsers = async () => {
   try {
     client.on('ready', async () => {
       const guild = await client.guilds.fetch(process.env.GUILD_ID)
-      const members = await guild.members.fetch({ query: 'jdmedlock', limit: 5 } )
+      //const members = await guild.members.fetch({ query: 'Hypno', limit: 5 } )
+      const members = await guild.members.fetch({ } )
       console.log('Guild members...:')
+      let memberCount = 0
       for (const member of members) {
+        memberCount = ++memberCount
         const userName = member[1].user.username.concat('#', member[1].user.discriminator)
-        console.log(`id: ${ member[1].user.id } userName: ${ userName }`)
-        const updateResult = await addDiscordIDToApplication(userName, member[1].user.id )
-        console.log(`id: ${ member[1].user.id } userName: ${ userName } updateResult: ${ updateResult }`)
+        console.log(`${ memberCount.toString().padStart(5,"0") } id: ${ member[1].user.id } userName: ${ userName }`)
+        // Skip any users whose Discord names contain double quotes, which can't
+        // be encoded in an Airtable filter
+        let updateResult
+        if (userName.indexOf('"') !== -1) {
+          updateResult = "Skipping"
+        } else {
+          updateResult = await addDiscordIDToApplication(userName, member[1].user.id )
+        }
+        console.log(`${ memberCount.toString().padStart(5,"0") } id: ${ member[1].user.id } userName: ${ userName } updateResult: ${ updateResult }`)
       }
     })
   }
