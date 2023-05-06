@@ -14,7 +14,7 @@ const extractDiscordUsers = async () => {
   try {
     client.on('ready', async () => {
       const guild = await client.guilds.fetch(process.env.GUILD_ID)
-      const members = await guild.members.fetch({ limit: 5 } )
+      const members = await guild.members.fetch({ query: 'jdmedlock', limit: 5 } )
       console.log('Guild members...:')
       for (const member of members) {
         const userName = member[1].user.username.concat('#', member[1].user.discriminator)

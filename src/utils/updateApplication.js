@@ -68,9 +68,9 @@ const addDiscordIDToApplication = async (discordName, discordID) => {
       resolve(-1)
     } else {
       // If a matching row is found update it with the message count
-      //const updateResult = await updateVoyageMetric(recordID, discordName, discordID)
-      //resolve(updateResult)
-      resolve('UPDATED')
+      const updateResult = await updateApplication(recordID, discordID)
+      resolve(updateResult)
+      //resolve('UPDATED')
     }
   })
 }
