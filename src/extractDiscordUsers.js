@@ -1,6 +1,8 @@
 import { Client, GatewayIntentBits } from 'discord.js'
 import { addDiscordIDToApplication } from './utils/updateApplication.js'
 
+const MS_PER_DAY = 86400000
+
 const extractDiscordUsers = async () => {
   const client = new Client({
       intents: [
@@ -19,13 +21,18 @@ const extractDiscordUsers = async () => {
       console.log('Guild members...:')
       let memberCount = 0
       for (const member of members) {
+
         memberCount = ++memberCount
         const userName = member[1].user.username.concat('#', member[1].user.discriminator)
         console.log(`${ memberCount.toString().padStart(5,"0") } id: ${ member[1].user.id } userName: ${ userName }`)
+
+
         // Skip any users whose Discord names contain double quotes, which can't
         // be encoded in an Airtable filter
         let updateResult
-        if (userName.indexOf('"') !== -1) {
+        const daysSinceJoined = Number.parseInt((Date.now() - member[1].joinedTimestamp) / MS_PER_DAY)
+        
+        if (userName.indexOf('"') !== -1 || daysSinceJoined > process.env.DAYS_TO_SEARCH) {
           updateResult = "Skipping"
         } else {
           updateResult = await addDiscordIDToApplication(userName, member[1].user.id )
